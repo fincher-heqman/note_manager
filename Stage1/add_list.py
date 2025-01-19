@@ -17,7 +17,7 @@ titles.append(title3)
 
 """
 ++
-amount_titles = int(input('Введите число заголовков для добавления: ))
+amount_titles = int(input('Введите число заголовков для добавления: '))
 titles = []
 for i in range(1, amount_titles+1):
     new_title = input(f'Введите заголовок №{i}: ')
