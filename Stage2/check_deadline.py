@@ -1,40 +1,41 @@
 """
-Grade 1. Этап 2: Задание 2
+Grade 1. Этап 2: Задание 3
 """
+import datetime
 
-# Изначальный статус, предположим это изначальные данные
-abstract_dict = {'status': 'отложено'}
-current_status = abstract_dict.get('status')
 
-# Предположим, что это бесконечный цикл, в соответствии с темой, чтобы показать возможности
-while True:
-    # Запрашиваем ввод у пользователя отображая варианты и текущий статус заметки
-    user_choice = input(f"""
-    В настоящий момент статус заметки - {current_status}
-        Вам предложено выбрать статус заметки:
-        0. выход
-        1. выполнено
-        2. в процессе
-        3. отложено
-    Введите число предложенного варианта: """)
+# Функция для привода даты к нужному формату и выводу её
+def print_date_for_user(date, time_format: str = "%d-%m-%Y") -> None:
+    date = date.strftime(time_format)
+    text_for_user = f'Текущая дата: {date}'
+    print(text_for_user)
 
-    # форматируем ввод для дальнейшей проверки, чтобы сделать ввод более удобным
-    user_choice = user_choice.strip().lower()
+# Запрашиваем у пользователя дату дедлайна
+def user_input() -> datetime.date:
+    try:
+        result_date = input('Введите дату дедлайна (в формате день-месяц-год): ')
+        result_date = datetime.datetime.strptime(result_date, "%d-%m-%Y").date()
+    except ValueError:
+        print('Введено некорректное значение, попробуйте снова в соответствии с указанным форматом')
+        result_date = user_input()
+    return result_date
 
-    # Проводим проверку ввода и изменяем в соответствии с вариантом
-    if user_choice == '0' or user_choice == 'выход':
-        print('Вы вышли из меню изменения статуса заметки')
-        break
-    elif user_choice == '1' or user_choice == 'выполнено':
-        current_status = 'выполнено'
-    elif user_choice == '2' or user_choice == 'в процессе':
-        current_status = 'в процессе'
-    elif user_choice == '3' or user_choice == 'отложено':
-        current_status = 'отложено'
-    else:
-        print('Некорректный ввод, введите число в соответствии с предложенными ответами!')
-        continue
 
-    # Вносим изменение в словарь и выводим информацию об изменении
-    abstract_dict['status'] = current_status
-    print(f'Статус заметки успешно обновлён на: {current_status}')
+if __name__ == '__main__':
+    # Получаем текущую дату и дату дедлайна
+    current_date = datetime.date.today()
+    issue_date = user_input()
+
+    # Вычисление разницы в датах
+    result = issue_date - current_date
+    result = result.days
+
+    # Проверяем на условие
+    if result == 0:
+        print('Внимание дедлайн сегодня!')
+    elif result > 0:
+        print(f'До дедлайна осталось {result}')
+    elif result < 0:
+        print(f'Внимание! Дедлайн истёк {result} дня (дней) назад.')
+
+
