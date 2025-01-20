@@ -1,5 +1,5 @@
 """
-Grade 1. Этап 2: Задание 3
+Grade 1. Этап 2: Задание 4
 """
 import datetime
 
