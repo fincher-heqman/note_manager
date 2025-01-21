@@ -15,11 +15,11 @@ titles.append(title1)
 titles.append(title2)
 titles.append(title3)
 
-"""
-++
-amount_titles = int(input('Введите число заголовков для добавления: '))
-titles = []
-for i in range(1, amount_titles+1):
-    new_title = input(f'Введите заголовок №{i}: ')
-    titles.append(new_title)
-"""
+# Добавляем вывод всех переменных
+print(titles)
+# В задании не уточнено в каком виде нужно вывести переменные
+# Возможно при помощи цикла
+count = 0
+for title in titles:
+    count += 1
+    print(f'Заголовок №{count}: {title}')

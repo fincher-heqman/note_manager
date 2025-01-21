@@ -49,7 +49,7 @@ def input_valid_date(text_for_user: str) -> datetime.date:
 # Позволяет пользователю выбрать, какое поле заметки нужно обновить.
 # Запрашивает новое значение для выбранного поля.
 # Обновляет указанное поле заметки.
-def update_note(note: dict):
+def update_note(note: dict) -> None:
     user_choice = input("""
     Вы можете обновить следующие заметки, введите название, или номер для изменения:
     1. username
@@ -70,9 +70,16 @@ def update_note(note: dict):
     elif user_choice == '5' or user_choice == 'issue_date':
         note['issue_date'] = input_valid_date('Введите issue_date')
 
+def print_all_notes(message: str, database: list) -> None:
+    print(message)
+    for note in database:
+        print('_' * 7)
+        print(note)
+        print('_' * 7)
+
 def main():
     # Текущие данные заметки:
-    pass
+    print_all_notes('Текущие данные заметки: ')
     # Программа предлагает выбрать поле для обновления:
     # Пользователь вводит новое значение:
 
