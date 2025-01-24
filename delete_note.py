@@ -1,7 +1,6 @@
 """
 Grade 1. Этап 2: Задание 5
 """
-from urllib.parse import uses_relative
 
 
 ### Блок функций ###
