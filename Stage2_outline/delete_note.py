@@ -1,6 +1,8 @@
 """
 Grade 1. Этап 2: Задание 5
 """
+from urllib.parse import uses_relative
+
 
 ### Блок функций ###
 # Запрашивает у пользователя значение для удаления
@@ -42,7 +44,10 @@ def delete_note_by_value(notes_pool: list, value: str, criteria_delete: tuple = 
         delete_current = False
         # Реализация проверки на критерий для удаления
         for criterion in criteria_delete:
-            if note.get(criterion) == value:
+            # Реализация нечувствительного регистра через 2 форматированные переменные
+            criterion_value = note.get(criterion).lower().strip()
+            user_value = value.lower().strip()
+            if criterion_value == user_value:
                 delete_current = True
                 delete_status = True
                 break
@@ -62,6 +67,19 @@ def update_list(notes_pool: list, value: str):
     else:
         print('Заметок по указанному значению не найдено. ')
     return returning_list
+
+def choice_insurance(value: str) -> bool:
+    prompt = (f'Вы уверены что хотите удалить заметки по значению "{value}"? '
+              f'Пожалуйста, введите да/нет соответственно: ')
+    while True:
+        user_answer = input(prompt)
+        user_answer = user_answer.lower().strip()
+        if user_answer == 'да':
+            return True
+        elif user_answer == 'нет':
+            return False
+        else:
+            prompt = 'Было введен некорректный ответ. Пожалуйста, введите да/нет соответственно: '
 
 ### Основная функция скрипта ###
 def main() -> None:
@@ -87,7 +105,10 @@ def main() -> None:
             print('Программа завершает свое действие')
             return
         # Обновляем список по значению
-        notes = update_list(notes, value_to_delete)
+        if choice_insurance(value_to_delete):
+            notes = update_list(notes, value_to_delete)
+        else:
+            print(f'Вы отказались удалять заметки по значению {value_to_delete}')
         print('*' * 8)
 
 if __name__ == '__main__':
