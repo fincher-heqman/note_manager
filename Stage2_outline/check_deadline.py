@@ -4,32 +4,38 @@ Grade 1. Этап 2: Задание 3
 import datetime
 
 
-# Функция для привода даты к нужному формату и выводу её
-def print_date_for_user(date, time_format: str = "%d-%m-%Y") -> None:
-    date = date.strftime(time_format)
-    text_for_user = f'Текущая дата: {date}'
-    print(text_for_user)
+# запрашиваем у пользователя дату дедлайна и объект datetime.date для дальнейших вычислений
+def get_issue_date(format_date: str = '%d.%m.%Y') -> datetime.date:
+    # вводим вспомогательные переменные
+    formats_date = {'%d.%m.%Y': 'в формате день-месяц-год, например 22.01.2025'}
+    prompt_issue_date = f'Введите дату дедлайна ({formats_date.get(format_date)}): '
+    # запускаем цикл, чтобы в нём можно было обработать ошибки
+    while True:
+        try:
+            # получаем ввод от пользователя
+            date_from_user = input(prompt_issue_date)
+            # преобразуем его в список для преобразования в нужный объект
+            date_from_user_temp = date_from_user.split('.')
+            day = int(date_from_user_temp[0])
+            month = int(date_from_user_temp[1])
+            year = int(date_from_user_temp[2])
+            result_date = datetime.date(year,month,day)
+            # с получением нужного объекта выходим из цикла
+            return result_date
+        except ValueError:
+            print('Введено некорректное значение, попробуйте снова в соответствии с указанным форматом')
+            continue
+        except Exception as e:
+            print(f'Произошла ошибка {e}. Попробуйте снова ввести дату в соответствии с указанным форматом')
+            continue
 
-# Запрашиваем у пользователя дату дедлайна
-def user_input() -> datetime.date:
-    try:
-        result_date = input('Введите дату дедлайна (в формате день-месяц-год): ')
-        result_date = datetime.datetime.strptime(result_date, "%d-%m-%Y").date()
-    except ValueError:
-        print('Введено некорректное значение, попробуйте снова в соответствии с указанным форматом')
-        result_date = user_input()
-    return result_date
-
-
-if __name__ == '__main__':
+def main():
     # Получаем текущую дату и дату дедлайна
     current_date = datetime.date.today()
-    issue_date = user_input()
-
+    issue_date = get_issue_date()
     # Вычисление разницы в датах
     result = issue_date - current_date
     result = result.days
-
     # Проверяем на условие
     if result == 0:
         print('Внимание дедлайн сегодня!')
@@ -38,4 +44,6 @@ if __name__ == '__main__':
     elif result < 0:
         print(f'Внимание! Дедлайн истёк {result} дня (дней) назад.')
 
+if __name__ == '__main__':
+    main()
 
