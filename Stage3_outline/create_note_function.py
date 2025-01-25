@@ -45,7 +45,8 @@ def input_valid_date(text_for_user: str) -> datetime.date:
     return result
 
 # Запрашивает у пользователя информацию для создания заметки.
-# Возвращает данные заметки в виде словаря.
+
+# Функция создания заметки
 def create_note() -> dict:
     username = input_valid_str('Введите имя пользователя: ')
     title = input_valid_str('Введите заголовок заметки: ')
@@ -63,6 +64,26 @@ def create_note() -> dict:
     }
     return result
 
-if __name__ == '__main__':
+# Функция для структурированного отображения заметки
+def print_note(note: dict) -> None:
+    username = note.get('username')
+    title = note.get('title')
+    content = note.get('content')
+    status = note.get('status')
+    created_date = note.get('created_date')
+    issue_date = note.get('issue_date')
+
+    print(f'Имя пользователя: {username}')
+    print(f'Заголовок заметки: {title}')
+    print(f'Описание заметки: {content}')
+    print(f'Статус заметки: {status}')
+    print(f'Дата создания заметки: {created_date}')
+    print(f'Дата истечения (дедлайна): {issue_date}')
+
+### Основная функция задания ###
+def main() -> None:
     current_note = create_note()
-    print(current_note)
+    print_note(current_note)
+
+if __name__ == '__main__':
+    main()

@@ -70,16 +70,16 @@ def update_note(note: dict) -> None:
     elif user_choice == '5' or user_choice == 'issue_date':
         note['issue_date'] = input_valid_date('Введите issue_date')
 
-def print_all_notes(message: str, database: list) -> None:
+def print_notes(message: str, database: list) -> None:
     print(message)
     for note in database:
         print('_' * 7)
         print(note)
-        print('_' * 7)
 
 def main():
     # Текущие данные заметки:
-    print_all_notes('Текущие данные заметки: ')
+    print_notes('Текущие данные заметки: ', )
+    print('*' * 8)
     # Программа предлагает выбрать поле для обновления:
     # Пользователь вводит новое значение:
 
