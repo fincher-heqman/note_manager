@@ -128,15 +128,6 @@ def print_note(note: dict, num_note: int = None) -> None:
     print(f'Дата создания заметки: {created_date}')
     print(f'Дата истечения (дедлайна): {issue_date}')
 
-# Не нужная сейчас функция, сделал на будущее для отображения всех заметок
-def print_notes(notes_pool: list) -> None:
-    notes_pool = tuple(notes_pool)
-    count = 0
-    print('Список заметок: ')
-    for note in notes_pool:
-        print_note(note, count)
-    print('*' * 8)
-
 ### Функция для демонстрации задания ###
 def main() -> None:
     current_note = create_note()
